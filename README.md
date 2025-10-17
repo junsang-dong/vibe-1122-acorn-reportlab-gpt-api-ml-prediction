@@ -3,6 +3,7 @@
 > **AI 기반 자동 매출 리포트 생성 시스템**
 
 Pandas와 GPT API를 활용하여 판매 데이터를 분석하고, 전문적인 PDF 보고서를 자동으로 생성하는 풀스택 웹 애플리케이션입니다.
+! 파일 업로드 갯수 제한 문제로 node_modules는 제외 >> 직접 노드 모듈을 구성하세요.
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-14+-green.svg)](https://nodejs.org/)
