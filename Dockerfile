@@ -10,18 +10,17 @@ RUN apt-get update && apt-get install -y \
     python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
-# Python을 python3로 심볼릭 링크 (spawn 'python3' 호환)
-RUN ln -sf /usr/bin/python3 /usr/bin/python
-
 WORKDIR /app
 
 # Node.js 의존성 설치
 COPY package*.json ./
 RUN npm ci --omit=dev
 
-# Python 의존성 설치
+# Python 가상환경 생성 및 의존성 설치 (PEP 668 대응)
+RUN python3 -m venv /app/venv
+ENV PATH="/app/venv/bin:$PATH"
 COPY requirements.txt ./
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # 애플리케이션 소스 복사
 COPY . .
