@@ -1,0 +1,45 @@
+# Git
+.git
+.gitignore
+
+# Node
+node_modules
+npm-debug.log*
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+*.egg-info/
+
+# 환경 변수 (Railway에서 별도 설정)
+.env
+.env.*
+!.env.example
+
+# 업로드/출력 파일 (런타임에 생성됨)
+uploads/*
+output/*
+temp_charts/*
+*.pdf
+
+# 문서 (배포 불필요)
+*.md
+!README.md
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+*.ipynb

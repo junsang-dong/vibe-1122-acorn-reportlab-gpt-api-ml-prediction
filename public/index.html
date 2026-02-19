@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Report Generator - 매출 리포트 자동 생성</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>📊 Sales Report Generator</h1>
+                <p class="subtitle">AI 기반 매출 분석 및 리포트 자동 생성</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Info Section -->
+            <section class="info-section">
+                <div class="info-card">
+                    <div class="info-icon">📈</div>
+                    <h3>Pandas 데이터 분석</h3>
+                    <p>총매출, 평균, 카테고리별 합계 등 주요 통계를 자동으로 계산합니다</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🤖</div>
+                    <h3>GPT AI 분석</h3>
+                    <p>OpenAI GPT를 활용한 자연어 분석 보고서를 생성합니다</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">📉</div>
+                    <h3>Matplotlib 시각화</h3>
+                    <p>카테고리별, 지역별 등 다양한 차트를 자동으로 생성합니다</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">📄</div>
+                    <h3>PDF 리포트</h3>
+                    <p>ReportLab으로 전문적인 PDF 보고서를 생성합니다</p>
+                </div>
+            </section>
+
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-box" id="uploadBox">
+                    <div class="upload-icon">📁</div>
+                    <h2>파일 업로드</h2>
+                    <p class="upload-description">CSV 또는 XLSX 파일을 드래그 앤 드롭하거나 클릭하여 선택하세요</p>
+                    <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" hidden>
+                    <button class="btn-select" id="selectBtn">파일 선택</button>
+                    <div class="file-info" id="fileInfo"></div>
+                </div>
+
+                <button class="btn-generate" id="generateBtn" disabled>
+                    <span class="btn-text">리포트 생성</span>
+                    <span class="btn-icon">🚀</span>
+                </button>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section" id="progressSection" style="display: none;">
+                <div class="progress-container">
+                    <h3>보고서 생성 중...</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text" id="progressText">파일 업로드 중...</p>
+                </div>
+            </section>
+
+            <!-- Requirements Section -->
+            <section class="requirements-section">
+                <h3>📋 필수 데이터 컬럼</h3>
+                <div class="requirements-grid">
+                    <div class="requirement-item">
+                        <span class="requirement-icon">✓</span>
+                        <span>Sales (매출)</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="requirement-icon">✓</span>
+                        <span>Profit (이익)</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="requirement-icon">✓</span>
+                        <span>Category (카테고리)</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="requirement-icon">✓</span>
+                        <span>State 또는 Region (지역)</span>
+                    </div>
+                </div>
+                <p class="requirements-note">
+                    💡 예시 파일: <code>Sample-100-Superstore.csv</code>를 참고하세요
+                </p>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features-section">
+                <h3>🎯 주요 기능</h3>
+                <ul class="features-list">
+                    <li>전체 매출 및 이익 통계 (총합, 평균, 중간값, 최대/최소)</li>
+                    <li>카테고리별 매출 및 이익 분석</li>
+                    <li>서브카테고리별 성과 분석 (상위 10개)</li>
+                    <li>지역별 매출 및 이익 분석 (상위 10개)</li>
+                    <li>고객 세그먼트별 분석</li>
+                    <li>월별 매출 추세 분석</li>
+                    <li>6가지 데이터 시각화 차트</li>
+                    <li>GPT 기반 마케팅 전략 제안</li>
+                </ul>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by Python, Pandas, Matplotlib, OpenAI GPT, ReportLab & Express.js</p>
+            <p class="footer-links">
+                <a href="https://github.com" target="_blank">GitHub</a> •
+                <a href="https://docs.reportlab.com/rml/tutorials/fund-reports/" target="_blank">ReportLab Docs</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
