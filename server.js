@@ -55,7 +55,7 @@ const upload = multer({
 // Python 스크립트 실행 함수
 function runPythonScript(scriptPath, args = []) {
     return new Promise((resolve, reject) => {
-        const python = spawn('python3', [scriptPath, ...args]);
+        const python = spawn('python3', [scriptPath, ...args], { cwd: __dirname });
         let stdout = '';
         let stderr = '';
 
@@ -70,7 +70,9 @@ function runPythonScript(scriptPath, args = []) {
         python.on('close', (code) => {
             if (code !== 0) {
                 console.error('Python script stderr:', stderr);
-                reject(new Error(`Python script error: ${stderr}`));
+                console.error('Python script stdout:', stdout);
+                const errMsg = stderr.trim() || stdout.trim() || `Exit code ${code}`;
+                reject(new Error(`Python script error: ${errMsg}`));
             } else {
                 try {
                     // stdout에서 JSON 부분만 추출
@@ -206,7 +208,7 @@ app.post('/api/generate-report', upload.single('file'), async (req, res) => {
     } catch (error) {
         console.error('Error generating report:', error);
         res.status(500).json({
-            error: '보고서 생성 중 오류가 발생했습니다.',
+            error: error.message || '보고서 생성 중 오류가 발생했습니다.',
             details: error.message
         });
 

@@ -55,11 +55,31 @@ def analyze_sales_data(file_path):
     try:
         # 파일 확장자에 따라 읽기
         if file_path.endswith('.csv'):
-            df = pd.read_csv(file_path, encoding='utf-8')
+            # 인코딩 폴백 (UTF-8, CP949, Latin-1 등)
+            for encoding in ['utf-8', 'utf-8-sig', 'cp949', 'euc-kr', 'latin-1']:
+                try:
+                    df = pd.read_csv(file_path, encoding=encoding)
+                    break
+                except UnicodeDecodeError:
+                    continue
+            else:
+                return {"success": False, "error": "CSV 파일 인코딩을 인식할 수 없습니다. UTF-8 또는 CP949로 저장 후 다시 시도해주세요."}
         elif file_path.endswith(('.xlsx', '.xls')):
             df = pd.read_excel(file_path)
         else:
-            return {"error": "지원하지 않는 파일 형식입니다. CSV 또는 XLSX 파일을 업로드하세요."}
+            return {"success": False, "error": "지원하지 않는 파일 형식입니다. CSV 또는 XLSX 파일을 업로드하세요."}
+
+        # 컬럼명 공백 제거 및 표준화 (Sales, Profit 필수)
+        df.columns = df.columns.str.strip()
+        col_map = {c.lower(): c for c in df.columns}
+        if 'sales' not in col_map or 'profit' not in col_map:
+            return {"success": False, "error": "필수 컬럼(Sales, Profit)이 없습니다. 데이터에 'Sales'와 'Profit' 컬럼이 있는지 확인해주세요."}
+        # 대소문자 무관하게 표준 컬럼명으로 매핑
+        standard_cols = {'sales': 'Sales', 'profit': 'Profit', 'category': 'Category', 'sub-category': 'Sub-Category',
+                        'state': 'State', 'region': 'Region', 'segment': 'Segment', 'quantity': 'Quantity',
+                        'order date': 'Order Date', 'date': 'Date', 'orderdate': 'OrderDate'}
+        rename_map = {col_map[k]: v for k, v in standard_cols.items() if k in col_map}
+        df = df.rename(columns=rename_map)
 
         # 기본 통계 계산
         stats = {}
